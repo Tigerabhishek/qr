@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Try It Yourself</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="container">
+   <p class="title">QR Code Generator</p>
+   <input type="text" name="" id="qrvalue">
+  <button onclick="cre()" class="creBut">Create QR</button>
+  <div class="imgcontainer">
+   <img src="" alt="qrcode">
+  </div>
+  </div>
+  <p class="abhi">Created By ABHISHEK</p>
+</body>
+</html>
+<style>
+*
+{
+ margin: 0;
+ padding: 0;
+ font-family: Monospace;
+}
+body
+{
+ background: #262626;
+ height: 100vh;
+ width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.container
+{
+ padding: 5px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ transition: ease-in-out 1s;
+ gap: 10px;
+ background: rgba(0,0,0,0.1);
+ backdrop-filter: blie(15px);
+ box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+ overflow: hidden;
+}
+.title
+{
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+#qrvalue
+{
+ padding: 8px 10px;
+ padding-left: 5px;
+ padding-right: 5px;
+ border: none;
+ outline: none;
+ background: transparent;
+ border: 1px solid wheat;
+ color: white;
+ font-size: 18px;
+}
+.creBut
+{
+ border: none;
+  padding: 5px 5px;
+  transition: ease-in-out 1s;
+ }
+ .creBut:hover
+ {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+ }
+img
+{
+ height: 100px;
+  width: 100px;
+  object-fit: cover;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: ease-in-out 1s;
+}
+ .imgcontainer
+ {
+  opacity: ;
+  display: none;
+  transition: ease-in-out 1s;
+ }
+ .abhi
+ {
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+ }
+</style>
+<script>
+ 
+ function cre() {
+ var qrvalue = document.getElementById("qrvalue");
+ var qrimg = document.querySelector('.imgcontainer img')
+ 
+var imgcontainer = document.querySelector('.imgcontainer').style.display = "block";
+ 
+  var jinal = qrvalue.value;
+  qrimg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=170×170&data=' + jinal;
+  
+  
+ }
+</script>
