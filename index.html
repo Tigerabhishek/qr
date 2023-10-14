@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Try It Yourself</title>
+  <title>QR Code generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("neIh2Mt_gfywarO83");
+   })();
+</script>
 </head>
 <body>
+ <p class="feedBut" onclick="shfeedback()">feedback</p>
   <div class="container">
    <p class="title">QR Code Generator</p>
    <input type="text" name="" id="qrvalue">
   <button onclick="cre()" class="creBut">Create QR</button>
   <div class="imgcontainer">
-   <img src="" alt="qrcode">
+   <a id="link" href="#" download>
+  <img src="" alt="qrcode">
+</a>
   </div>
   </div>
-  <p class="abhi">Created By ABHISHEK</p>
+  <p class="abhi">Created By <span class="shek">ABHISHEK</span></p>
+  <div id="feedbackcontainer">
+   <div class="feedHead">
+    <p class="feedTie">feedback</p>
+   <p class="cancle" onclick="hifeedback()">cancle</p>
+   </div>
+   <input type="text" name="" id="name" placeholder="Name" class="feedbackname">
+   <input type="text" name="" id="email" placeholder="E-mail" class="feedbackname">
+   <textarea placeholder="Message" class="message" id="message"></textarea>
+   <textarea placeholder="suggestion" class="message" id="suggestion"></textarea>
+   <button class="subBut" onclick="seema()">Submit</button>
+  </div>
 </body>
 </html>
 <style>
@@ -32,6 +54,15 @@ body
  align-items: center;
  justify-content: center;
 }
+.feedBut
+{
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+}
 .container
 {
  padding: 5px;
@@ -42,7 +73,7 @@ body
  transition: ease-in-out 1s;
  gap: 10px;
  background: rgba(0,0,0,0.1);
- backdrop-filter: blie(15px);
+ backdrop-filter: blur(15px);
  box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
  overflow: hidden;
 }
@@ -64,6 +95,7 @@ body
  border: 1px solid wheat;
  color: white;
  font-size: 18px;
+ text-align: center;
 }
 .creBut
 {
@@ -96,15 +128,96 @@ img
  .abhi
  {
   font-size: 12px;
-  font-weight: bold;
   position: absolute;
   bottom: 5px;
   right: 5px;
   color: white;
  }
+ .shek
+ {
+  font-weight: bold;
+ }
+ #feedbackcontainer
+ {
+ padding: 5px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ transition: ease-in-out 1s;
+ gap: 10px;
+ background: rgba(0,0,0,0.1);
+ backdrop-filter: blur(15px);
+ box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+ overflow: hidden;
+ z-index: 1;
+ position: absolute;
+ visibility: hidden;
+ }
+ .feedHead
+ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width: 100%;
+ }
+ .feedTie
+ {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+ }
+ .cancle
+ {
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+ }
+ .feedbackname
+ {
+  padding: 8px 10px;
+ padding-left: 5px;
+ padding-right: 5px;
+ border: none;
+ outline: none;
+ background: transparent;
+ border: 1px solid wheat;
+ color: white;
+ font-size: 18px;
+ text-align: ;
+ }
+ .message
+ {
+ height: 50px;
+ padding: 8px 10px;
+ padding-left: 5px;
+ padding-right: 5px;
+ border: none;
+ outline: none;
+ background: transparent;
+ border: 1px solid wheat;
+ color: white;
+ font-size: 18px;
+ text-align: ;
+}
+.subBut
+{
+ border: none;
+  padding: 5px 5px;
+  transition: ease-in-out 1s;
+ }
+ .subBut:hover
+ {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+ }
 </style>
 <script>
- 
+ setTimeout(function() {
+      confirm("Please give us feedback");
+    }, 3000);
  function cre() {
  var qrvalue = document.getElementById("qrvalue");
  var qrimg = document.querySelector('.imgcontainer img')
@@ -114,6 +227,43 @@ var imgcontainer = document.querySelector('.imgcontainer').style.display = "bloc
   var jinal = qrvalue.value;
   qrimg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=170×170&data=' + jinal;
   
-  
+  var link = document.getElementById("link");
+  link.href = qrimg + ".jpg";
  }
+ 
+ function shfeedback() {
+  var feedbackcontainer = document.getElementById("feedbackcontainer").style.visibility = "visible";
+ }
+ 
+ function hifeedback() {
+  var feedbackcontainer = document.getElementById("feedbackcontainer").style.display = "none";
+ }
+ 
+ function seema() {
+  var params = {
+   name: document.getElementById("name").value,
+   email: document.getElementById("email").value,
+   message: document.getElementById("message").value,
+   suggestion: document.getElementById("suggestion").value
+  }
+  const serviceID = "service_kh47mua";
+  const templateID = "template_n7rddsc";
+  
+  emailjs.send(serviceID, templateID,params)
+  .then((res) =>{
+    document.getElementById("name").value = "";
+    document.getElementById("enail").value = "";
+    
+    document.getElementById("message").value = "";
+    
+    document.getElementById("suggestion").value = "";
+    
+    
+   }
+  )
+  .catch((err) => console.log("error"));
+  
+  alert("successful");
+ }
+ 
 </script>
